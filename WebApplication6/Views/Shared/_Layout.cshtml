@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/jquery-3.4.1.js")
+    @Scripts.Render("~/Scripts/moment.js");
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/fullcalendar")
+    <link rel="stylesheet" type="text/css" href="~/styles/bootstrap4/bootstrap.min.css">
+    <link href="~/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/responsive.css">
+    @RenderSection("scripts", required: false)
+</head>
+
+<body>
+    <div class="header_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                        <div class="logo_container">
+                            <a href="#">
+                                <div class="logo_text">Educat<span>Book</span></div>
+                            </a>
+                        </div>
+                        <nav class="main_nav_contaner ml-auto">
+                            <ul class="main_nav">
+                                <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", "Index", new { @class = "nav-link active" })</li>
+                                <li class="nav-item">@Html.ActionLink("Studenti", "Index", "Studenti", "Index", new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Profesori", "Index", "Profesori", "Index", new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Cursuri", "Index", "Cursuri", "Index", new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Roluri", "Index", "Role", "Index", new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Calendar", "Index", "Calendar", "Index", new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Prezente", "Index", "Prezente", "Index", new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Rezervari", "Create", "Event", "Create", new { @class = "nav-link" })</li>
+
+                            </ul>
+
+                            <!-- Hamburger -->
+
+
+                            <div class="hamburger menu_mm">
+                                <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year</p>
+        </footer>
+    </div>
+
+
+</body>
+</html>

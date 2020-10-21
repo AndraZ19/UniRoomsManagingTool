@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WebApplication6.Models.Curs">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAADECAABAECAA=</HashCode>
+      <FileName>Models\Curs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplication6.Models.Events">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAKAAgAAIAAAAQAAAAAAAAQAAAAECAABAAAAE=</HashCode>
+      <FileName>Models\Events.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplication6.Models.Student">
+    <Position X="4.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IABCAAAAAAAAAAAAAAAAAAAAAAQAQAAABAAAAAAEAAA=</HashCode>
+      <FileName>Models\Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplication6.Models.Sala">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAAAAAAEIAAAAAAAAAAAEgAAAAAABAAAAIQAAAA=</HashCode>
+      <FileName>Models\Sala.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplication6.Models.Profesor">
+    <Position X="9" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAIAIAAAAAAAAAAAAAAgAABAAABAAAAAAAAAA=</HashCode>
+      <FileName>Models\Profesor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplication6.Models.Prezente">
+    <Position X="6.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAgAAAAAAAAAAAAAAAAAgAAAIAAAAAAAEACAAA=</HashCode>
+      <FileName>Models\Prezente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplication6.Models.InscriereCursuri">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAgIAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\InscriereCursuri.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

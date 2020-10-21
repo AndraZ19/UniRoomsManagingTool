@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d27336d092b743daa1050c5fc6fcc1bc" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="dbSchoolsModel.Curs" Width="1.5" PointX="4.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSchoolsModel.Profesor" Width="1.5" PointX="7.375" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSchoolsModel.Sala" Width="1.5" PointX="2.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSchoolsModel.Student" Width="1.5" PointX="6.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbSchoolsModel.Events" Width="1.5" PointX="0.75" PointY="3.25" />
+        <EntityTypeShape EntityType="dbSchoolsModel.InscriereCursuri" Width="1.5" PointX="9.75" PointY="2.125" />
+        <AssociationConnector Association="dbSchoolsModel.FK_Cursuri_ToProfesori" />
+        <AssociationConnector Association="dbSchoolsModel.FK_InscriereCursuri_Cursuri" />
+        <AssociationConnector Association="dbSchoolsModel.FK_InscriereCursuri_Studenti" />
+        <AssociationConnector Association="dbSchoolsModel.FK_Events_ToCursuri" />
+        <AssociationConnector Association="dbSchoolsModel.FK_Events_ToProfesori" />
+        <AssociationConnector Association="dbSchoolsModel.FK_Events_ToSala" />
+        <EntityTypeShape EntityType="dbSchoolsModel.Prezente" Width="1.5" PointX="8.75" PointY="5.75" />
+        <AssociationConnector Association="dbSchoolsModel.FK_Prezente_ToEvents" />
+        <AssociationConnector Association="dbSchoolsModel.FK_Prezente_ToStudents" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

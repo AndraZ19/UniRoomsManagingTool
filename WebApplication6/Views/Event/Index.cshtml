@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebApplication6.Models.Events>
+
+@{
+    ViewBag.Title = "Raport";
+}
+
+<h2>Index</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Start_time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.End_time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cursuri.Nume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Profesori.Nume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sali.Nume)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start_time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.End_time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cursuri.Nume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profesori.Nume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sali.Nume)
+            </td>
+
+        </tr>
+    }
+
+</table>

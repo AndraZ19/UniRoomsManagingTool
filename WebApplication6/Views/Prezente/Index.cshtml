@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebApplication6.Models.Prezente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Print Report", "PrintView", "Prezente");
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezenta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Events.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Studenti.Nume)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Prezenta)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Events.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Studenti.Nume)
+    </td>
+    <td>
+
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+</tr>
+}
+
+</table>

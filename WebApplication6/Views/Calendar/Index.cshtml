@@ -1,0 +1,55 @@
+﻿@using WebApplication6.Controllers;
+<!DOCTYPE html>
+
+<html lang='en'>
+<head>
+    <meta charset='utf-8' />
+
+
+    <script src='~/Scripts/jquery-3.4.1.js'></script>
+    <script src='~/Scripts/moment.js'></script>
+    <script src='~/Scripts/fullcalendar/fullcalendar.js'></script>
+
+    <link rel='stylesheet' href='~/Content/fullcalendar.css' />
+
+
+    <script>
+        $(document).ready(function () {
+
+            var sourceFullView = { url: '/Event/GetEvents/' };
+            var eventsLoaded = true;
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultView: 'month',
+                editable: true,
+                allDayDefault: false, 
+                allDaySlot: false,
+                selectable: true,
+                slotMinutes: 30,
+                lazyfetching: true,
+                events: '/Event/GetEvents/',
+              
+                dayClick: function( jsEvent, view) {
+
+                    $('#calendar').fullCalendar('changeView','agendaDay');
+
+   }
+            });
+
+
+
+        });
+     
+    </script>
+</head>
+<body>
+    @Html.ActionLink("Print Report", "PrintView","Event");
+    <div id='calendar'></div>
+
+</body>
+</html>

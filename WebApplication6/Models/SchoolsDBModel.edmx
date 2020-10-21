@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbSchoolsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cursuri">
+          <Key>
+            <PropertyRef Name="CursId" />
+          </Key>
+          <Property Name="CursId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Capacitate" Type="int" />
+          <Property Name="PCReq" Type="bit" />
+          <Property Name="VideoReq" Type="bit" />
+          <Property Name="ProfId" Type="int" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Start_time" Type="datetime" Nullable="false" />
+          <Property Name="End_time" Type="datetime" Nullable="false" />
+          <Property Name="CursId" Type="int" Nullable="false" />
+          <Property Name="ProfId" Type="int" Nullable="false" />
+          <Property Name="SalaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InscriereCursuri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ClassId" Type="int" Nullable="false" />
+          <Property Name="StudId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Prezente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prezenta" Type="bit" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="EventId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profesori">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="50" />
+          <Property Name="Discipline" Type="nvarchar(max)" />
+          <Property Name="Guid" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Sali">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="50" />
+          <Property Name="Etaj" Type="int" Nullable="false" />
+          <Property Name="Cladire" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Echipament Video" Type="bit" Nullable="false" />
+          <Property Name="PC" Type="bit" Nullable="false" />
+          <Property Name="Capacitate" Type="int" Nullable="false" />
+          <Property Name="Libera" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Studenti">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="An" Type="int" Nullable="false" />
+          <Property Name="Medie" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="GUID" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Cursuri_ToProfesori">
+          <End Role="Profesori" Type="Self.Profesori" Multiplicity="0..1" />
+          <End Role="Cursuri" Type="Self.Cursuri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesori">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cursuri">
+              <PropertyRef Name="ProfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_ToCursuri">
+          <End Role="Cursuri" Type="Self.Cursuri" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cursuri">
+              <PropertyRef Name="CursId" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="CursId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_ToProfesori">
+          <End Role="Profesori" Type="Self.Profesori" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesori">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="ProfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_ToSala">
+          <End Role="Sali" Type="Self.Sali" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sali">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="SalaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InscriereCursuri_Cursuri">
+          <End Role="Cursuri" Type="Self.Cursuri" Multiplicity="1" />
+          <End Role="InscriereCursuri" Type="Self.InscriereCursuri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cursuri">
+              <PropertyRef Name="CursId" />
+            </Principal>
+            <Dependent Role="InscriereCursuri">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InscriereCursuri_Studenti">
+          <End Role="Studenti" Type="Self.Studenti" Multiplicity="1" />
+          <End Role="InscriereCursuri" Type="Self.InscriereCursuri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studenti">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InscriereCursuri">
+              <PropertyRef Name="StudId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prezente_ToEvents">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="Prezente" Type="Self.Prezente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prezente">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prezente_ToStudents">
+          <End Role="Studenti" Type="Self.Studenti" Multiplicity="1" />
+          <End Role="Prezente" Type="Self.Prezente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studenti">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prezente">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbSchoolsModelStoreContainer">
+          <EntitySet Name="Cursuri" EntityType="Self.Cursuri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InscriereCursuri" EntityType="Self.InscriereCursuri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prezente" EntityType="Self.Prezente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profesori" EntityType="Self.Profesori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sali" EntityType="Self.Sali" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Studenti" EntityType="Self.Studenti" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cursuri_ToProfesori" Association="Self.FK_Cursuri_ToProfesori">
+            <End Role="Profesori" EntitySet="Profesori" />
+            <End Role="Cursuri" EntitySet="Cursuri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_ToCursuri" Association="Self.FK_Events_ToCursuri">
+            <End Role="Cursuri" EntitySet="Cursuri" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_ToProfesori" Association="Self.FK_Events_ToProfesori">
+            <End Role="Profesori" EntitySet="Profesori" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_ToSala" Association="Self.FK_Events_ToSala">
+            <End Role="Sali" EntitySet="Sali" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InscriereCursuri_Cursuri" Association="Self.FK_InscriereCursuri_Cursuri">
+            <End Role="Cursuri" EntitySet="Cursuri" />
+            <End Role="InscriereCursuri" EntitySet="InscriereCursuri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InscriereCursuri_Studenti" Association="Self.FK_InscriereCursuri_Studenti">
+            <End Role="Studenti" EntitySet="Studenti" />
+            <End Role="InscriereCursuri" EntitySet="InscriereCursuri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prezente_ToEvents" Association="Self.FK_Prezente_ToEvents">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Prezente" EntitySet="Prezente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prezente_ToStudents" Association="Self.FK_Prezente_ToStudents">
+            <End Role="Studenti" EntitySet="Studenti" />
+            <End Role="Prezente" EntitySet="Prezente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbSchoolsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Curs">
+          <Key>
+            <PropertyRef Name="CursId" />
+          </Key>
+          <Property Name="Nume" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Capacitate" Type="Int32" />
+          <Property Name="PCReq" Type="Boolean" />
+          <Property Name="VideoReq" Type="Boolean" />
+          <Property Name="CursId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProfId" Type="Int32" />
+          <NavigationProperty Name="Profesori" Relationship="dbSchoolsModel.FK_Cursuri_ToProfesori" FromRole="Curs" ToRole="Profesor" />
+          <NavigationProperty Name="InscriereCursuri" Relationship="dbSchoolsModel.FK_InscriereCursuri_Cursuri" FromRole="Curs" ToRole="InscriereCursuri" />
+          <NavigationProperty Name="Events" Relationship="dbSchoolsModel.FK_Events_ToCursuri" FromRole="Curs" ToRole="Events" />
+        </EntityType>
+        <EntityType Name="Profesor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Discipline" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cursuri" Relationship="dbSchoolsModel.FK_Cursuri_ToProfesori" FromRole="Profesor" ToRole="Curs" />
+          <Property Name="Guid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Events" Relationship="dbSchoolsModel.FK_Events_ToProfesori" FromRole="Profesor" ToRole="Events" />
+        </EntityType>
+        <EntityType Name="Sala">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Etaj" Type="Int32" Nullable="false" />
+          <Property Name="Cladire" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Echipament_Video" Type="Boolean" Nullable="false" />
+          <Property Name="PC" Type="Boolean" Nullable="false" />
+          <Property Name="Capacitate" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Events" Relationship="dbSchoolsModel.FK_Events_ToSala" FromRole="Sala" ToRole="Events" />
+          <Property Name="Libera" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="An" Type="Int32" Nullable="false" />
+          <Property Name="Medie" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <NavigationProperty Name="InscriereCursuri" Relationship="dbSchoolsModel.FK_InscriereCursuri_Studenti" FromRole="Student" ToRole="InscriereCursuri" />
+          <Property Name="GUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Prezente" Relationship="dbSchoolsModel.FK_Prezente_ToStudents" FromRole="Student" ToRole="Prezente" />
+        </EntityType>
+        <EntityContainer Name="dbSchoolsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cursuri" EntityType="dbSchoolsModel.Curs" />
+          <EntitySet Name="Profesori" EntityType="dbSchoolsModel.Profesor" />
+          <EntitySet Name="Sali" EntityType="dbSchoolsModel.Sala" />
+          <EntitySet Name="Studenti" EntityType="dbSchoolsModel.Student" />
+          <EntitySet Name="Events" EntityType="dbSchoolsModel.Events" />
+          <EntitySet Name="InscriereCursuri" EntityType="dbSchoolsModel.InscriereCursuri" />
+          <AssociationSet Name="FK_Cursuri_ToProfesori" Association="dbSchoolsModel.FK_Cursuri_ToProfesori">
+            <End Role="Profesor" EntitySet="Profesori" />
+            <End Role="Curs" EntitySet="Cursuri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InscriereCursuri_Cursuri" Association="dbSchoolsModel.FK_InscriereCursuri_Cursuri">
+            <End Role="Curs" EntitySet="Cursuri" />
+            <End Role="InscriereCursuri" EntitySet="InscriereCursuri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InscriereCursuri_Studenti" Association="dbSchoolsModel.FK_InscriereCursuri_Studenti">
+            <End Role="Student" EntitySet="Studenti" />
+            <End Role="InscriereCursuri" EntitySet="InscriereCursuri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_ToCursuri" Association="dbSchoolsModel.FK_Events_ToCursuri">
+            <End Role="Curs" EntitySet="Cursuri" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_ToProfesori" Association="dbSchoolsModel.FK_Events_ToProfesori">
+            <End Role="Profesor" EntitySet="Profesori" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_ToSala" Association="dbSchoolsModel.FK_Events_ToSala">
+            <End Role="Sala" EntitySet="Sali" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <EntitySet Name="Prezente" EntityType="dbSchoolsModel.Prezente" />
+          <AssociationSet Name="FK_Prezente_ToEvents" Association="dbSchoolsModel.FK_Prezente_ToEvents">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Prezente" EntitySet="Prezente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prezente_ToStudents" Association="dbSchoolsModel.FK_Prezente_ToStudents">
+            <End Role="Student" EntitySet="Studenti" />
+            <End Role="Prezente" EntitySet="Prezente" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Start_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="End_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CursId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cursuri" Relationship="dbSchoolsModel.FK_Events_ToCursuri" FromRole="Events" ToRole="Curs" />
+          <Property Name="ProfId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Profesori" Relationship="dbSchoolsModel.FK_Events_ToProfesori" FromRole="Events" ToRole="Profesor" />
+          <Property Name="SalaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sali" Relationship="dbSchoolsModel.FK_Events_ToSala" FromRole="Events" ToRole="Sala" />
+          <NavigationProperty Name="Prezente" Relationship="dbSchoolsModel.FK_Prezente_ToEvents" FromRole="Events" ToRole="Prezente" />
+        </EntityType>
+        <EntityType Name="InscriereCursuri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <Property Name="StudId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cursuri" Relationship="dbSchoolsModel.FK_InscriereCursuri_Cursuri" FromRole="InscriereCursuri" ToRole="Curs" />
+          <NavigationProperty Name="Studenti" Relationship="dbSchoolsModel.FK_InscriereCursuri_Studenti" FromRole="InscriereCursuri" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Cursuri_ToProfesori">
+          <End Type="dbSchoolsModel.Profesor" Role="Profesor" Multiplicity="0..1" />
+          <End Type="dbSchoolsModel.Curs" Role="Curs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Curs">
+              <PropertyRef Name="ProfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InscriereCursuri_Cursuri">
+          <End Type="dbSchoolsModel.Curs" Role="Curs" Multiplicity="1" />
+          <End Type="dbSchoolsModel.InscriereCursuri" Role="InscriereCursuri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curs">
+              <PropertyRef Name="CursId" />
+            </Principal>
+            <Dependent Role="InscriereCursuri">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InscriereCursuri_Studenti">
+          <End Type="dbSchoolsModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="dbSchoolsModel.InscriereCursuri" Role="InscriereCursuri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InscriereCursuri">
+              <PropertyRef Name="StudId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_ToCursuri">
+          <End Type="dbSchoolsModel.Curs" Role="Curs" Multiplicity="1" />
+          <End Type="dbSchoolsModel.Events" Role="Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curs">
+              <PropertyRef Name="CursId" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="CursId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_ToProfesori">
+          <End Type="dbSchoolsModel.Profesor" Role="Profesor" Multiplicity="1" />
+          <End Type="dbSchoolsModel.Events" Role="Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="ProfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_ToSala">
+          <End Type="dbSchoolsModel.Sala" Role="Sala" Multiplicity="1" />
+          <End Type="dbSchoolsModel.Events" Role="Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="SalaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Prezente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Prezenta" Type="Boolean" Nullable="false" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="EventId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Events" Relationship="dbSchoolsModel.FK_Prezente_ToEvents" FromRole="Prezente" ToRole="Events" />
+          <NavigationProperty Name="Studenti" Relationship="dbSchoolsModel.FK_Prezente_ToStudents" FromRole="Prezente" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Prezente_ToEvents">
+          <End Type="dbSchoolsModel.Events" Role="Events" Multiplicity="1" />
+          <End Type="dbSchoolsModel.Prezente" Role="Prezente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prezente">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prezente_ToStudents">
+          <End Type="dbSchoolsModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="dbSchoolsModel.Prezente" Role="Prezente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prezente">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbSchoolsModelStoreContainer" CdmEntityContainer="dbSchoolsEntities">
+          <EntitySetMapping Name="Cursuri">
+            <EntityTypeMapping TypeName="dbSchoolsModel.Curs">
+              <MappingFragment StoreEntitySet="Cursuri">
+                <ScalarProperty Name="ProfId" ColumnName="ProfId" />
+                <ScalarProperty Name="CursId" ColumnName="CursId" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Capacitate" ColumnName="Capacitate" />
+                <ScalarProperty Name="PCReq" ColumnName="PCReq" />
+                <ScalarProperty Name="VideoReq" ColumnName="VideoReq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profesori">
+            <EntityTypeMapping TypeName="dbSchoolsModel.Profesor">
+              <MappingFragment StoreEntitySet="Profesori">
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Discipline" ColumnName="Discipline" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sali">
+            <EntityTypeMapping TypeName="dbSchoolsModel.Sala">
+              <MappingFragment StoreEntitySet="Sali">
+                <ScalarProperty Name="Libera" ColumnName="Libera" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Etaj" ColumnName="Etaj" />
+                <ScalarProperty Name="Cladire" ColumnName="Cladire" />
+                <ScalarProperty Name="Echipament_Video" ColumnName="Echipament Video" />
+                <ScalarProperty Name="PC" ColumnName="PC" />
+                <ScalarProperty Name="Capacitate" ColumnName="Capacitate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Studenti">
+            <EntityTypeMapping TypeName="dbSchoolsModel.Student">
+              <MappingFragment StoreEntitySet="Studenti">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="An" ColumnName="An" />
+                <ScalarProperty Name="Medie" ColumnName="Medie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="dbSchoolsModel.Events">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="SalaId" ColumnName="SalaId" />
+                <ScalarProperty Name="ProfId" ColumnName="ProfId" />
+                <ScalarProperty Name="CursId" ColumnName="CursId" />
+                <ScalarProperty Name="End_time" ColumnName="End_time" />
+                <ScalarProperty Name="Start_time" ColumnName="Start_time" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InscriereCursuri">
+            <EntityTypeMapping TypeName="dbSchoolsModel.InscriereCursuri">
+              <MappingFragment StoreEntitySet="InscriereCursuri">
+                <ScalarProperty Name="StudId" ColumnName="StudId" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prezente">
+            <EntityTypeMapping TypeName="dbSchoolsModel.Prezente">
+              <MappingFragment StoreEntitySet="Prezente">
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Prezenta" ColumnName="Prezenta" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
